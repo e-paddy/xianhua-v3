@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>悼念词选择界面</title>
+  <style>
+    body {
+      background-color: #333;
+      font-family: Arial, sans-serif;
+      color: #000;
+      margin: 0;
+      padding: 0;
+    }
+    .background {
+      width: 100vw;
+      height: 100vh;
+      background: url('../asset/img/background.png') no-repeat center center;
+      background-size: cover;
+      position: relative;
+    }
+
+    #cancel-button {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: white;
+      border: none;
+      border-radius: 50%;
+      /* 增大按钮的宽度和高度 */
+      width: 60px;
+      height: 60px;
+      text-align: center;
+      line-height: 60px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #main-container {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px;
+    }
+
+    #preset-area {
+      width: 60%;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 10px;
+    }
+
+    #preset-area h2 {
+      text-align: center;
+    }
+
+    .preset-item {
+      background-color: white;
+      margin: 10px 0;
+      padding: 10px;
+      cursor: pointer;
+      text-align: center;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .preset-item:hover {
+      background-color: #f0f0f0;
+    }
+
+    #custom-area {
+      width: 35%;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 10px;
+      /* 开启相对定位，以便内部的下一步按钮可以相对于此区域定位 */
+      position: relative;
+    }
+
+    #custom-area h2 {
+      text-align: center;
+    }
+
+    #custom-textarea {
+      width: 100%;
+      height: 200px;
+    }
+
+    #next-button {
+      /* 改为绝对定位，相对于自定义区域 */
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background-color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    #next-button:hover {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+<div class="background">
+  <button id="cancel-button" onclick="window.clearThisRecord(); window.location.href='1.html'">取消</button>
+  <div id="main-container">
+    <div id="preset-area">
+      <h2>悼念词选择</h2>
+      <div class="preset-item" onclick="selectPreset('英灵不朽，铭记于心。')">英灵不朽，铭记于心。</div>
+      <div class="preset-item" onclick="selectPreset('烈士奉献，山河见证。')">烈士奉献，山河见证。</div>
+      <div class="preset-item" onclick="selectPreset('为国捐躯，精神长存。')">为国捐躯，精神长存。</div>
+      <div class="preset-item" onclick="selectPreset('缅怀先烈，感恩无限。')">缅怀先烈，感恩无限。</div>
+      <div class="preset-item" onclick="selectPreset('和平年代，因您而来。')">和平年代，因您而来。</div>
+      <div class="preset-item" onclick="selectPreset('英雄事迹，永志不忘。')">英雄事迹，永志不忘。</div>
+      <div class="preset-item" onclick="selectPreset('承继遗志，奋勇前行。')">承继遗志，奋勇前行。</div>
+      <div class="preset-item" onclick="selectPreset('敬献鲜花，寄托哀思。')">敬献鲜花，寄托哀思。</div>
+      <div class="preset-item" onclick="selectPreset('忠魂浩气，光照千古。')">忠魂浩气，光照千古。</div>
+      <div class="preset-item" onclick="selectPreset('烈士安息，吾辈自强。')">烈士安息，吾辈自强。</div>
+    </div>
+    <div id="custom-area">
+      <h2>自定义悼念词</h2>
+      <textarea id="custom-textarea"></textarea>
+      <button id="next-button" onclick="selectCustom()">下一步</button>
+    </div>
+  </div>
+</div>
+
+<script src="./js/renderer.js"></script>
+<script>  function selectPreset(preset) {
+  window.setThisRecordField("mourningWords",preset)
+  window.location.href = '4.html';
+}
+function selectCustom() {
+  const customText = document.getElementById('custom-textarea').value;
+  window.setThisRecordField("mourningWords",customText)
+  window.location.href = '4.html';
+}</script>
+</body>
+</html>

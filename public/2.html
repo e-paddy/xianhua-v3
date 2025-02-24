@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>祭奠页面</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .background {
+            width: 100vw;
+            height: 100vh;
+            background: url('../asset/img/background.png') no-repeat center center;
+            background-size: cover;
+            position: relative;
+        }
+
+        .start-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px 40px;
+            font-size: 24px;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+        }
+
+    </style>
+</head>
+<body>
+<div class="background">
+    <button class="start-button" onclick="window.location.href='3.html'">开始祭奠</button>
+</div>
+<script src="./js/renderer.js"></script>
+</body>
+</html>

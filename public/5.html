@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>纪念人签到页面</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('../asset/img/background.png'); /* 请替换为实际背景图片路径 */
+            background-size: cover;
+            background-repeat: no-repeat;
+            font-family: Arial, sans-serif;
+        }
+
+        #cancel {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 5px 10px;
+            border: none;
+            background-color: white;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        #title {
+            text-align: center;
+            margin-top: 50px;
+            color: black;
+        }
+
+        #input-container {
+            text-align: center;
+            margin: 50px auto;
+            width: 400px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        #input-field {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        #button-container {
+            text-align: center;
+            margin: 50px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            border: none;
+            background-color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="cancel" onclick="window.clearThisRecord(); window.location.href='1.html'">取消</button>
+    <h2 id="title" style="color: white">纪念人签到</h2>
+    <div id="input-container">
+        <input type="text" id="input-field" placeholder="请输入签到信息">
+    </div>
+    <div id="button-container">
+        <button id="prev" onclick="window.location.href='4.html'">上一步</button>
+        <button id="submit" onclick="submitRecord()">提交</button>
+    </div>
+</body>
+<script src="./js/renderer.js"></script>
+<script >
+    function submitRecord() {
+        const inputField = document.getElementById('input-field');
+        const signature = inputField.value.trim();
+        alert("签名值："+signature)
+        if (signature) {
+            window.setThisRecordField('signature', signature)
+            window.addRecordToFlowerRecords(window.ThisRecord);
+            window.location.href = '1.html';
+            console.log(window.getThisRecord)
+        } else {
+            alert('请输入签名信息');
+        }
+    }
+</script>
+</html>

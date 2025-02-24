@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鲜花选择页面</title>
+    <style>
+        body {
+            background-image: url('../asset/img/background.png'); /* 请替换为实际背景图片路径 */
+            background-size: cover;
+        }
+
+        #cancel {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        #title {
+            text-align: center;
+            margin-top: 100px;
+            font-size: 36px;
+        }
+
+        #flower-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 50px auto;
+            max-height: 400px; /* Adjusted max-height to accommodate more flowers */
+            overflow-y: hidden; /* Hide overflow to show arrows */
+        }
+
+        .flower-box {
+            width: 200px;
+            height: 150px;
+            background-color: white;
+            margin: 10px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .flower-box.selected {
+            border-color: #007bff;
+        }
+
+        .flower-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .flower-box span {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            text-align: center;
+            padding: 5px 0;
+        }
+
+        #button-container {
+            text-align: center;
+            margin: 50px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            background-color: white;
+            border: 1px solid #ccc;
+        }
+
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 15px;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        .arrow.left {
+            left: 10px;
+        }
+
+        .arrow.right {
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+<button id="cancel" onclick="window.clearThisRecord(); window.location.href='1.html'">取消</button>
+<h2 id="title" style="color: aliceblue;">选择鲜花</h2>
+<div id="flower-container">
+</div>
+<div id="button-container">
+    <button id="prev" onclick="window.location.href='3.html'">上一步</button>
+    <button id="next" onclick="window.location.href='5.html'">下一步</button>
+</div>
+
+<div class="arrow left" id="prev-arrow">←</div>
+<div class="arrow right" id="next-arrow">→</div>
+<script src="./js/renderer.js"></script>
+<script >
+    const flowers = [
+        { name: '一只白菊', image: '../asset/img/hua/一只白菊.png' },
+        { name: '一只黄菊', image: '../asset/img/hua/一只黄菊.png' },
+        { name: '一束百合', image: '../asset/img/hua/一束百合.png' },
+        { name: '一束马蹄莲花', image: '../asset/img/hua/一束马蹄莲花.png' },
+        { name: '一束黄白菊', image: '../asset/img/hua/一束黄白菊.png' },
+        { name: '白色花环', image: '../asset/img/hua/白色花环.png' },
+        { name: '花篮1', image: '../asset/img/hua/花篮1.png' },
+        { name: '花篮2', image: '../asset/img/hua/花篮2.png' },
+    ];
+    const flowerContainer = document.getElementById('flower-container');
+    const prevArrow = document.getElementById('prev-arrow');
+    const nextArrow = document.getElementById('next-arrow');
+    let currentIndex = 0;
+    const maxVisibleFlowers = 8;
+    let selectedFlowerName = null;
+
+    function displayFlowers() {
+        flowerContainer.innerHTML = '';
+        for (let i = currentIndex; i < currentIndex + maxVisibleFlowers && i < flowers.length; i++) {
+            const flower = flowers[i];
+            const flowerBox = document.createElement('div');
+            flowerBox.classList.add('flower-box');
+            flowerBox.innerHTML = `
+                <img src="${flower.image}" alt="${flower.name}">
+                <span>${flower.name}</span>
+            `;
+            flowerBox.addEventListener('click', () => {
+                flowerContainer.querySelectorAll('.flower-box').forEach(box => box.classList.remove('selected'));
+                flowerBox.classList.add('selected');
+                selectedFlowerName = flower.name;
+            });
+            flowerContainer.appendChild(flowerBox);
+        }
+    }
+    prevArrow.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex -= maxVisibleFlowers;
+            displayFlowers();
+        }
+    });
+
+    nextArrow.addEventListener('click', () => {
+        if (currentIndex + maxVisibleFlowers < flowers.length) {
+            currentIndex += maxVisibleFlowers;
+            displayFlowers();
+        }
+    });
+
+    document.getElementById('next').addEventListener('click', () => {
+        alert("选择了花："+selectedFlowerName)
+        if (selectedFlowerName) {
+            window.setThisRecordField('flower', selectedFlowerName)
+            window.location.href = '5.html';
+        } else {
+            alert('请选择一种鲜花');
+        }
+    });
+    displayFlowers();
+</script>
+</body>
+</html>
